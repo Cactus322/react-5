@@ -43,6 +43,11 @@ const App = () => {
         }
     }
 
+    const hangleLogout = e => {
+        window.localStorage.clear()
+        setUser(null)
+    }
+
     const loginForm = () => (
         <form onSubmit={hangleLogin}>
             <div>
@@ -74,6 +79,7 @@ const App = () => {
             </div>
 
             <h2>{user.name} logged in</h2>
+            <button onClick={hangleLogout}>logout</button>
 
             <h2>blogs</h2>
 
