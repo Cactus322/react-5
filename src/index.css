@@ -1,0 +1,20 @@
+.blogs-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 100px;
+    gap: 10px;
+}
+
+.message-error {
+    padding: 10px;
+    background-color: red;
+    border-radius: 8px;
+    color: white;
+}
+
+.message-success {
+    padding: 10px;
+    background-color: green;
+    border-radius: 8px;
+    color: white;
+}

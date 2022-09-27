@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import Blog from "./components/Blog";
+import { BlogForm } from "./components/BlogForm";
+import { Messages } from "./components/Messages";
+import { UserInfo } from "./components/UserInfo";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
 
@@ -8,10 +11,11 @@ const App = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [user, setUser] = useState(null);
-    const [errorMessage, setErrorMessage] = useState(null);
     const [title, setTitle] = useState(null);
     const [author, setAuthor] = useState(null);
     const [url, setUrl] = useState(null);
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [successMessage, setSuccessMessage] = useState(null);
 
     useEffect(() => {
         blogService.getAll().then((blogs) => setBlogs(blogs));
@@ -22,6 +26,7 @@ const App = () => {
         if (loggedUserJSON) {
             const user = JSON.parse(loggedUserJSON);
             setUser(user);
+            blogService.setToken(user.token);
         }
     }, []);
 
@@ -37,6 +42,7 @@ const App = () => {
                 "loggedBlogAppUser",
                 JSON.stringify(user)
             );
+            blogService.setToken(user.token);
             setUser(user);
             setUsername("");
             setPassword("");
@@ -44,26 +50,7 @@ const App = () => {
             setErrorMessage("Wrong credentials");
             setTimeout(() => {
                 setErrorMessage(null);
-            }, 5000);
-        }
-    };
-
-    const handleLogout = (e) => {
-        window.localStorage.clear();
-        setUser(null);
-    };
-
-    const handleBlog = async (e) => {
-        e.preventDefault();
-
-        const blogObject = {
-            title: title,
-            author: author,
-            url: url
-        }
-        
-        if (Object.values(blogObject).filter( elem => elem === '').length > 0) {
-            setErrorMessage('Fill in the empty fields')
+            }, 3000);
         }
     };
 
@@ -93,44 +80,20 @@ const App = () => {
 
     const userBlock = () => (
         <div>
-            <div>
-                <p>{errorMessage}</p>
-            </div>
+            <Messages errorMessage={errorMessage} successMessage={successMessage} />
 
-            <h2>{user.name} logged in</h2>
-            <button onClick={handleLogout}>logout</button>
+            <UserInfo user={user} setUser={setUser} />
 
-            <form onSubmit={handleBlog}>
-                <div>
-                    <p>title:</p>
-                    <input
-                        type="text"
-                        value={title}
-                        name="Title"
-                        onChange={({ target }) => setTitle(target.value)}
-                    />
-                </div>
-                <div>
-                    <p>author:</p>
-                    <input
-                        type="text"
-                        value={author}
-                        name="Author"
-                        onChange={({ target }) => setAuthor(target.value)}
-                    />
-                </div>
-                <div>
-                    <p>url:</p>
-                    <input
-                        type="text"
-                        value={url}
-                        name="Url"
-                        pattern="https://.*"
-                        onChange={({ target }) => setUrl(target.value)}
-                    />
-                </div>
-                <button type="submit">Create</button>
-            </form>
+            <BlogForm
+                title={title}
+                author={author}
+                url={url}
+                setTitle={setTitle}
+                setAuthor={setAuthor}
+                setUrl={setUrl}
+                setErrorMessage={setErrorMessage}
+                setSuccessMessage={setSuccessMessage}
+            />
 
             <h2>blogs</h2>
 
