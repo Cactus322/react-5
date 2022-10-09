@@ -1,7 +1,8 @@
 import { Messages } from "../components/Messages";
 import { UserInfo } from "../components/UserInfo";
 import { BlogForm } from "../components/BlogForm";
-import Blog from "../components/Blog";
+import BlogList from "./BlogList";
+import { Togglable } from "./Togglable";
 
 export const BlogUserBlock = ({
     blogs,
@@ -17,27 +18,40 @@ export const BlogUserBlock = ({
     setUrl,
     setErrorMessage,
     setSuccessMessage,
-}) => (
-    <div>
-        <Messages errorMessage={errorMessage} successMessage={successMessage} />
+}) => {
+    blogs.sort((x, y) => x.likes - y.likes);
 
-        <UserInfo user={user} setUser={setUser} />
+    return (
+        <div>
+            <Messages
+                errorMessage={errorMessage}
+                successMessage={successMessage}
+            />
 
-        <BlogForm
-            title={title}
-            author={author}
-            url={url}
-            setTitle={setTitle}
-            setAuthor={setAuthor}
-            setUrl={setUrl}
-            setErrorMessage={setErrorMessage}
-            setSuccessMessage={setSuccessMessage}
-        />
+            <UserInfo user={user} setUser={setUser} />
 
-        <h2>blogs</h2>
+            <Togglable
+                showButtonLabel="New note"
+                hideButtonLabel="Cancel"
+                margin
+            >
+                <BlogForm
+                    title={title}
+                    author={author}
+                    url={url}
+                    setTitle={setTitle}
+                    setAuthor={setAuthor}
+                    setUrl={setUrl}
+                    setErrorMessage={setErrorMessage}
+                    setSuccessMessage={setSuccessMessage}
+                />
+            </Togglable>
 
-        {blogs.map((blog) => (
-            <Blog key={blog.id} blog={blog} />
-        ))}
-    </div>
-);
+            <h2>blogs</h2>
+
+            {blogs.map((blog) => (
+                <BlogList key={blog.id} blog={blog} />
+            ))}
+        </div>
+    );
+};

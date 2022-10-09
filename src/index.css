@@ -18,3 +18,7 @@
     border-radius: 8px;
     color: white;
 }
+
+.togglable-button-margin {
+    margin-top: 20px;
+}

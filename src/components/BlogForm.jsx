@@ -30,7 +30,9 @@ export const BlogForm = ({
             blogService.create(blogObject).catch((error) => {
                 setErrorMessage(error.response.data.error);
             });
-            setSuccessMessage(`A new blog ${blogObject.title} by ${blogObject.author}`);
+            setSuccessMessage(
+                `A new blog ${blogObject.title} by ${blogObject.author}`
+            );
             setTimeout(() => {
                 setSuccessMessage(null);
             }, 3000);
@@ -67,7 +69,6 @@ export const BlogForm = ({
                         type="text"
                         value={url}
                         name="Url"
-                        pattern="http://.*"
                         onChange={({ target }) => setUrl(target.value)}
                     />
                 </label>
