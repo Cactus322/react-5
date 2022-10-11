@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState } from 'react'
+import PropTypes from 'prop-types'
 
 export const Togglable = ({
     showButtonLabel,
@@ -6,20 +7,20 @@ export const Togglable = ({
     margin,
     children,
 }) => {
-    const [visible, setVisible] = useState(false);
+    const [visible, setVisible] = useState(false)
 
-    const hideWhenVisible = { display: visible && "none" };
-    const showWhenVisible = { display: !visible && "none" };
+    const hideWhenVisible = { display: visible && 'none' }
+    const showWhenVisible = { display: !visible && 'none' }
 
     const toggleVisibilite = () => {
-        setVisible(!visible);
-    };
+        setVisible(!visible)
+    }
 
     return (
         <div>
             <div style={hideWhenVisible}>
                 <button
-                    className={margin && `togglable-button-margin`}
+                    className={margin && 'togglable-button-margin'}
                     onClick={toggleVisibilite}
                 >
                     {showButtonLabel}
@@ -28,12 +29,19 @@ export const Togglable = ({
             <div style={showWhenVisible}>
                 {children}
                 <button
-                    className={margin && `togglable-button-margin`}
+                    className={margin && 'togglable-button-margin'}
                     onClick={toggleVisibilite}
                 >
                     {hideButtonLabel}
                 </button>
             </div>
         </div>
-    );
-};
+    )
+}
+
+Togglable.propTypes = {
+    showButtonLabel: PropTypes.string.isRequired,
+    hideButtonLabel: PropTypes.string.isRequired,
+    margin: PropTypes.bool,
+    children: PropTypes.node,
+}

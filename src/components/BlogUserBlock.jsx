@@ -1,8 +1,9 @@
-import { Messages } from "../components/Messages";
-import { UserInfo } from "../components/UserInfo";
-import { BlogForm } from "../components/BlogForm";
-import BlogList from "./BlogList";
-import { Togglable } from "./Togglable";
+import { Messages } from '../components/Messages'
+import { UserInfo } from '../components/UserInfo'
+import { BlogForm } from '../components/BlogForm'
+import BlogList from './BlogList'
+import { Togglable } from './Togglable'
+import PropTypes from 'prop-types'
 
 export const BlogUserBlock = ({
     blogs,
@@ -19,7 +20,7 @@ export const BlogUserBlock = ({
     setErrorMessage,
     setSuccessMessage,
 }) => {
-    blogs.sort((x, y) => x.likes - y.likes);
+    blogs.sort((x, y) => x.likes - y.likes)
 
     return (
         <div>
@@ -53,5 +54,21 @@ export const BlogUserBlock = ({
                 <BlogList key={blog.id} blog={blog} />
             ))}
         </div>
-    );
-};
+    )
+}
+
+BlogUserBlock.propTypes = {
+    blogs: PropTypes.array,
+    user: PropTypes.object,
+    title: PropTypes.string,
+    author: PropTypes.string,
+    url: PropTypes.string,
+    setTitle: PropTypes.func,
+    setAuthor: PropTypes.func,
+    setUrl: PropTypes.func,
+    setErrorMessage: PropTypes.func,
+    setSuccessMessage: PropTypes.func,
+    errorMessage: PropTypes.any,
+    successMessage: PropTypes.any,
+    setUser: PropTypes.func,
+}

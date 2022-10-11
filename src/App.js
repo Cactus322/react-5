@@ -1,31 +1,31 @@
-import { useState, useEffect } from "react";
-import { BlogUserBlock } from "./components/BlogUserBlock";
-import { LoginForm } from "./components/LoginForm";
-import blogService from "./services/blogs";
+import { useState, useEffect } from 'react'
+import { BlogUserBlock } from './components/BlogUserBlock'
+import { LoginForm } from './components/LoginForm'
+import blogService from './services/blogs'
 
 const App = () => {
-    const [blogs, setBlogs] = useState([]);
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [user, setUser] = useState(null);
-    const [title, setTitle] = useState('');
-    const [author, setAuthor] = useState('');
-    const [url, setUrl] = useState('');
-    const [errorMessage, setErrorMessage] = useState(null);
-    const [successMessage, setSuccessMessage] = useState(null);
+    const [blogs, setBlogs] = useState([])
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const [user, setUser] = useState(null)
+    const [title, setTitle] = useState('')
+    const [author, setAuthor] = useState('')
+    const [url, setUrl] = useState('')
+    const [errorMessage, setErrorMessage] = useState(null)
+    const [successMessage, setSuccessMessage] = useState(null)
 
     useEffect(() => {
-        blogService.getAll().then((blogs) => setBlogs(blogs));
-    });
+        blogService.getAll().then((blogs) => setBlogs(blogs))
+    })
 
     useEffect(() => {
-        const loggedUserJSON = window.localStorage.getItem("loggedBlogAppUser");
+        const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser')
         if (loggedUserJSON) {
-            const user = JSON.parse(loggedUserJSON);
-            setUser(user);
-            blogService.setToken(user.token);
+            const user = JSON.parse(loggedUserJSON)
+            setUser(user)
+            blogService.setToken(user.token)
         }
-    }, []);
+    }, [])
 
     return (
         <div>
@@ -56,7 +56,7 @@ const App = () => {
                 />
             )}
         </div>
-    );
-};
+    )
+}
 
-export default App;
+export default App

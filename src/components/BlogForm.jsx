@@ -1,4 +1,5 @@
-import blogService from "../services/blogs";
+import blogService from '../services/blogs'
+import PropTypes from 'prop-types'
 
 export const BlogForm = ({
     title,
@@ -11,33 +12,33 @@ export const BlogForm = ({
     setSuccessMessage,
 }) => {
     const handleBlog = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
         const blogObject = {
             title: title,
             author: author,
             url: url,
-        };
+        }
 
         if (
-            Object.values(blogObject).filter((elem) => elem === "").length > 0
+            Object.values(blogObject).filter((elem) => elem === '').length > 0
         ) {
-            setErrorMessage("Fill in the empty fields");
+            setErrorMessage('Fill in the empty fields')
             setTimeout(() => {
-                setErrorMessage(null);
-            }, 3000);
+                setErrorMessage(null)
+            }, 3000)
         } else {
             blogService.create(blogObject).catch((error) => {
-                setErrorMessage(error.response.data.error);
-            });
+                setErrorMessage(error.response.data.error)
+            })
             setSuccessMessage(
                 `A new blog ${blogObject.title} by ${blogObject.author}`
-            );
+            )
             setTimeout(() => {
-                setSuccessMessage(null);
-            }, 3000);
+                setSuccessMessage(null)
+            }, 3000)
         }
-    };
+    }
 
     return (
         <>
@@ -76,5 +77,16 @@ export const BlogForm = ({
                 <button type="submit">Create</button>
             </form>
         </>
-    );
-};
+    )
+}
+
+BlogForm.propTypes = {
+    title: PropTypes.string,
+    author: PropTypes.string,
+    url: PropTypes.string,
+    setTitle: PropTypes.func,
+    setAuthor: PropTypes.func,
+    setUrl: PropTypes.func,
+    setErrorMessage: PropTypes.func,
+    setSuccessMessage: PropTypes.func,
+}

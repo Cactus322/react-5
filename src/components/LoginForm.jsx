@@ -1,5 +1,6 @@
-import loginService from "../services/login";
-import blogService from "../services/blogs";
+import loginService from '../services/login'
+import blogService from '../services/blogs'
+import PropTypes from 'prop-types'
 
 export const LoginForm = ({
     username,
@@ -10,28 +11,28 @@ export const LoginForm = ({
     setErrorMessage,
 }) => {
     const handleLogin = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
         try {
             const user = await loginService.login({
                 username,
                 password,
-            });
+            })
             window.localStorage.setItem(
-                "loggedBlogAppUser",
+                'loggedBlogAppUser',
                 JSON.stringify(user)
-            );
-            blogService.setToken(user.token);
-            setUser(user);
-            setUsername("");
-            setPassword("");
+            )
+            blogService.setToken(user.token)
+            setUser(user)
+            setUsername('')
+            setPassword('')
         } catch (exception) {
-            setErrorMessage("Wrong credentials");
+            setErrorMessage('Wrong credentials')
             setTimeout(() => {
-                setErrorMessage(null);
-            }, 3000);
+                setErrorMessage(null)
+            }, 3000)
         }
-    };
+    }
 
     return (
         <form onSubmit={handleLogin}>
@@ -55,5 +56,14 @@ export const LoginForm = ({
             </div>
             <button type="submit">login</button>
         </form>
-    );
-};
+    )
+}
+
+LoginForm.propTypes = {
+    username: PropTypes.string,
+    password: PropTypes.string,
+    setUser: PropTypes.func,
+    setUsername: PropTypes.func,
+    setPassword: PropTypes.func,
+    setErrorMessage: PropTypes.func,
+}
