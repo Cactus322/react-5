@@ -43,7 +43,7 @@ const BlogList = ({ blog }) => {
     return (
         <>
             <div style={blogList}>
-                <p style={titleMargin}>{blog.title}</p>
+                <p style={titleMargin}>{blog.title} {blog.author}</p>
                 <button onClick={handleClick}>
                     {blogDetailsShow ? 'Hide' : 'Show'}
                 </button>
@@ -59,7 +59,6 @@ const BlogList = ({ blog }) => {
                             likes
                         </button>
                     </li>
-                    <li>{blog.author}</li>
                     <li>
                         <button
                             onClick={() =>
