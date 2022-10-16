@@ -2,7 +2,7 @@ import { useState } from 'react'
 import blogService from '../services/blogs'
 import PropTypes from 'prop-types'
 
-const BlogList = ({ blog }) => {
+const BlogList = ({ blog, checkLikeClick }) => {
     const [blogDetailsShow, setBlogDetailsShow] = useState(false)
 
     const blogList = {
@@ -43,7 +43,9 @@ const BlogList = ({ blog }) => {
     return (
         <>
             <div style={blogList}>
-                <p style={titleMargin}>{blog.title} {blog.author}</p>
+                <p style={titleMargin}>
+                    {blog.title} {blog.author}
+                </p>
                 <button onClick={handleClick}>
                     {blogDetailsShow ? 'Hide' : 'Show'}
                 </button>
@@ -54,7 +56,11 @@ const BlogList = ({ blog }) => {
                     <li>
                         {blog.likes}
                         <button
-                            onClick={() => handleLikeClick(blog.id, blog.likes)}
+                            onClick={
+                                checkLikeClick
+                                    ? () => checkLikeClick()
+                                    : () => handleLikeClick(blog.id, blog.likes)
+                            }
                         >
                             likes
                         </button>
@@ -80,6 +86,7 @@ const BlogList = ({ blog }) => {
 
 BlogList.propTypes = {
     blog: PropTypes.object,
+    checkLikeClick: PropTypes.func,
 }
 
 export default BlogList
