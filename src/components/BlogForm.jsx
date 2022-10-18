@@ -1,43 +1,19 @@
-import blogService from '../services/blogs'
+// import blogService from '../services/blogs'
+import { useState } from 'react'
 import PropTypes from 'prop-types'
 
-export const BlogForm = ({
-    title,
-    author,
-    url,
-    setTitle,
-    setAuthor,
-    setUrl,
-    setErrorMessage,
-    setSuccessMessage,
-}) => {
-    const handleBlog = async (e) => {
+export const BlogForm = ({ createBlog }) => {
+    const [title, setTitle] = useState('')
+    const [author, setAuthor] = useState('')
+    const [url, setUrl] = useState('')
+    const handleBlog = (e) => {
         e.preventDefault()
 
-        const blogObject = {
+        createBlog({
             title: title,
             author: author,
             url: url,
-        }
-
-        if (
-            Object.values(blogObject).filter((elem) => elem === '').length > 0
-        ) {
-            setErrorMessage('Fill in the empty fields')
-            setTimeout(() => {
-                setErrorMessage(null)
-            }, 3000)
-        } else {
-            blogService.create(blogObject).catch((error) => {
-                setErrorMessage(error.response.data.error)
-            })
-            setSuccessMessage(
-                `A new blog ${blogObject.title} by ${blogObject.author}`
-            )
-            setTimeout(() => {
-                setSuccessMessage(null)
-            }, 3000)
-        }
+        })
     }
 
     return (
@@ -52,6 +28,7 @@ export const BlogForm = ({
                         value={title}
                         name="Title"
                         onChange={({ target }) => setTitle(target.value)}
+                        placeholder="write blog title here"
                     />
                 </label>
                 <label>
@@ -61,6 +38,7 @@ export const BlogForm = ({
                         value={author}
                         name="Author"
                         onChange={({ target }) => setAuthor(target.value)}
+                        placeholder="write blog author here"
                     />
                 </label>
 
@@ -71,6 +49,7 @@ export const BlogForm = ({
                         value={url}
                         name="Url"
                         onChange={({ target }) => setUrl(target.value)}
+                        placeholder="write blog url here"
                     />
                 </label>
 
@@ -81,12 +60,7 @@ export const BlogForm = ({
 }
 
 BlogForm.propTypes = {
-    title: PropTypes.string,
-    author: PropTypes.string,
-    url: PropTypes.string,
-    setTitle: PropTypes.func,
-    setAuthor: PropTypes.func,
-    setUrl: PropTypes.func,
-    setErrorMessage: PropTypes.func,
-    setSuccessMessage: PropTypes.func,
+    createBlog: PropTypes.func,
+    // setErrorMessage: PropTypes.func,
+    // setSuccessMessage: PropTypes.func,
 }

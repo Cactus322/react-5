@@ -8,9 +8,6 @@ const App = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [user, setUser] = useState(null)
-    const [title, setTitle] = useState('')
-    const [author, setAuthor] = useState('')
-    const [url, setUrl] = useState('')
     const [errorMessage, setErrorMessage] = useState(null)
     const [successMessage, setSuccessMessage] = useState(null)
 
@@ -42,15 +39,9 @@ const App = () => {
                 <BlogUserBlock
                     blogs={blogs}
                     user={user}
-                    title={title}
-                    author={author}
-                    url={url}
                     errorMessage={errorMessage}
                     successMessage={successMessage}
                     setUser={setUser}
-                    setTitle={setTitle}
-                    setAuthor={setAuthor}
-                    setUrl={setUrl}
                     setErrorMessage={setErrorMessage}
                     setSuccessMessage={setSuccessMessage}
                 />

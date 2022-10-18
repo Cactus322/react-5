@@ -1,3 +1,4 @@
+import blogService from '../services/blogs'
 import { Messages } from '../components/Messages'
 import { UserInfo } from '../components/UserInfo'
 import { BlogForm } from '../components/BlogForm'
@@ -8,19 +9,34 @@ import PropTypes from 'prop-types'
 export const BlogUserBlock = ({
     blogs,
     user,
-    title,
-    author,
-    url,
     errorMessage,
     successMessage,
     setUser,
-    setTitle,
-    setAuthor,
-    setUrl,
     setErrorMessage,
     setSuccessMessage,
 }) => {
-    blogs.sort((x, y) => x.likes - y.likes)
+    blogs.sort((x, y) => y.likes - x.likes)
+
+    const createBlog = async (blogObject) => {
+        if (
+            Object.values(blogObject).filter((elem) => elem === '').length > 0
+        ) {
+            setErrorMessage('Fill in the empty fields')
+            setTimeout(() => {
+                setErrorMessage(null)
+            }, 3000)
+        } else {
+            blogService.create(blogObject).catch((error) => {
+                setErrorMessage(error.response.data.error)
+            })
+            setSuccessMessage(
+                `A new blog ${blogObject.title} by ${blogObject.author}`
+            )
+            setTimeout(() => {
+                setSuccessMessage(null)
+            }, 3000)
+        }
+    }
 
     return (
         <div>
@@ -37,14 +53,7 @@ export const BlogUserBlock = ({
                 margin
             >
                 <BlogForm
-                    title={title}
-                    author={author}
-                    url={url}
-                    setTitle={setTitle}
-                    setAuthor={setAuthor}
-                    setUrl={setUrl}
-                    setErrorMessage={setErrorMessage}
-                    setSuccessMessage={setSuccessMessage}
+                    createBlog={createBlog}
                 />
             </Togglable>
 
