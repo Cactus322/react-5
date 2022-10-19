@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { BlogUserBlock } from './components/BlogUserBlock'
 import { LoginForm } from './components/LoginForm'
 import blogService from './services/blogs'
+import { Messages } from './components/Messages'
 
 const App = () => {
     const [blogs, setBlogs] = useState([])
@@ -13,7 +14,7 @@ const App = () => {
 
     useEffect(() => {
         blogService.getAll().then((blogs) => setBlogs(blogs))
-    })
+    }, [])
 
     useEffect(() => {
         const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser')
@@ -26,6 +27,10 @@ const App = () => {
 
     return (
         <div>
+            <Messages
+                errorMessage={errorMessage}
+                successMessage={successMessage}
+            />
             {user === null ? (
                 <LoginForm
                     username={username}

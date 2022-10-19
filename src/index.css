@@ -7,7 +7,7 @@
 
 .message-error {
     padding: 10px;
-    background-color: red;
+    background-color: rgb(255, 0, 0);
     border-radius: 8px;
     color: white;
 }
