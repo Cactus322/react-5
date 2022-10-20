@@ -41,19 +41,22 @@ const BlogList = ({ blog, checkLikeClick }) => {
     }
 
     return (
-        <>
-            <div style={blogList}>
-                <p style={titleMargin}>
+        <div className='blog-list'>
+            <div className="blog-list-item" style={blogList}>
+                <p className="blog-short-description" style={titleMargin}>
                     {blog.title} {blog.author}
                 </p>
-                <button onClick={handleClick}>
+                <button
+                    className={`${blogDetailsShow ? 'hide' : 'show'}-description-button`}
+                    onClick={handleClick}
+                >
                     {blogDetailsShow ? 'Hide' : 'Show'}
                 </button>
             </div>
             {blogDetailsShow && (
                 <ul style={listStyles}>
                     <li>{blog.url}</li>
-                    <li>
+                    <li className="blog-likes">
                         {blog.likes}
                         <button
                             onClick={
@@ -67,6 +70,7 @@ const BlogList = ({ blog, checkLikeClick }) => {
                     </li>
                     <li>
                         <button
+                            className="blog-remove-button"
                             onClick={() =>
                                 handleRemoveClick(
                                     blog.id,
@@ -80,7 +84,7 @@ const BlogList = ({ blog, checkLikeClick }) => {
                     </li>
                 </ul>
             )}
-        </>
+        </div>
     )
 }
 

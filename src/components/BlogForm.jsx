@@ -23,6 +23,7 @@ export const BlogForm = ({ createBlog }) => {
                 <label>
                     title:
                     <input
+                        className="blog-title"
                         type="text"
                         value={title}
                         name="Title"
@@ -33,6 +34,7 @@ export const BlogForm = ({ createBlog }) => {
                 <label>
                     author:
                     <input
+                        className="blog-author"
                         type="text"
                         value={author}
                         name="Author"
@@ -44,6 +46,7 @@ export const BlogForm = ({ createBlog }) => {
                 <label>
                     url:
                     <input
+                        className="blog-url"
                         type="text"
                         value={url}
                         name="Url"
@@ -52,7 +55,9 @@ export const BlogForm = ({ createBlog }) => {
                     />
                 </label>
 
-                <button type="submit">Create</button>
+                <button className="blog-create-button" type="submit">
+                    Create
+                </button>
             </form>
         </>
     )

@@ -20,7 +20,7 @@ export const Togglable = ({
         <div>
             <div style={hideWhenVisible}>
                 <button
-                    className={margin && 'togglable-button-margin'}
+                    className={`open-form ${margin && 'togglable-button-margin'}`}
                     onClick={toggleVisibilite}
                 >
                     {showButtonLabel}
@@ -29,7 +29,7 @@ export const Togglable = ({
             <div style={showWhenVisible}>
                 {children}
                 <button
-                    className={margin && 'togglable-button-margin'}
+                    className={`close-form ${margin && 'togglable-button-margin'}`}
                     onClick={toggleVisibilite}
                 >
                     {hideButtonLabel}

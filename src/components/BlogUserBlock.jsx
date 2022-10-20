@@ -1,5 +1,4 @@
 import blogService from '../services/blogs'
-import { Messages } from '../components/Messages'
 import { UserInfo } from '../components/UserInfo'
 import { BlogForm } from '../components/BlogForm'
 import BlogList from './BlogList'
@@ -9,8 +8,6 @@ import PropTypes from 'prop-types'
 export const BlogUserBlock = ({
     blogs,
     user,
-    errorMessage,
-    successMessage,
     setUser,
     setErrorMessage,
     setSuccessMessage,
@@ -40,15 +37,10 @@ export const BlogUserBlock = ({
 
     return (
         <div>
-            <Messages
-                errorMessage={errorMessage}
-                successMessage={successMessage}
-            />
-
             <UserInfo user={user} setUser={setUser} />
 
             <Togglable
-                showButtonLabel="New note"
+                showButtonLabel="New blog"
                 hideButtonLabel="Cancel"
                 margin
             >
