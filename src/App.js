@@ -1,16 +1,14 @@
 import { useState, useEffect } from 'react'
-import { BlogUserBlock } from './components/BlogUserBlock'
-import { LoginForm } from './components/LoginForm'
+import BlogUserBlock from './components/BlogUserBlock'
+import LoginForm from './components/LoginForm'
 import blogService from './services/blogs'
-import { Messages } from './components/Messages'
+import Notification from './components/Notification'
 
 const App = () => {
     const [blogs, setBlogs] = useState([])
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [user, setUser] = useState(null)
-    const [errorMessage, setErrorMessage] = useState(null)
-    const [successMessage, setSuccessMessage] = useState(null)
 
     useEffect(() => {
         blogService.getAll().then((blogs) => setBlogs(blogs))
@@ -27,10 +25,7 @@ const App = () => {
 
     return (
         <div>
-            <Messages
-                errorMessage={errorMessage}
-                successMessage={successMessage}
-            />
+            <Notification />
             {user === null ? (
                 <LoginForm
                     username={username}
@@ -38,17 +33,12 @@ const App = () => {
                     setUser={setUser}
                     setUsername={setUsername}
                     setPassword={setPassword}
-                    setErrorMessage={setErrorMessage}
                 />
             ) : (
                 <BlogUserBlock
                     blogs={blogs}
                     user={user}
-                    errorMessage={errorMessage}
-                    successMessage={successMessage}
                     setUser={setUser}
-                    setErrorMessage={setErrorMessage}
-                    setSuccessMessage={setSuccessMessage}
                 />
             )}
         </div>

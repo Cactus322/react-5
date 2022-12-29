@@ -65,6 +65,4 @@ export const BlogForm = ({ createBlog }) => {
 
 BlogForm.propTypes = {
     createBlog: PropTypes.func,
-    // setErrorMessage: PropTypes.func,
-    // setSuccessMessage: PropTypes.func,
 }

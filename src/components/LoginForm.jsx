@@ -1,14 +1,16 @@
 import loginService from '../services/login'
 import blogService from '../services/blogs'
 import PropTypes from 'prop-types'
+import { setNotification } from '../reducers/notificationReducer'
+import { connect } from 'react-redux'
 
-export const LoginForm = ({
+const LoginForm = ({
     username,
     password,
     setUser,
     setUsername,
     setPassword,
-    setErrorMessage,
+    setNotification,
 }) => {
     const handleLogin = async (e) => {
         e.preventDefault()
@@ -27,10 +29,7 @@ export const LoginForm = ({
             setUsername('')
             setPassword('')
         } catch (exception) {
-            setErrorMessage('Wrong credentials')
-            setTimeout(() => {
-                setErrorMessage(null)
-            }, 3000)
+            setNotification('Wrong credentials', 3, 'error')
         }
     }
 
@@ -63,6 +62,10 @@ export const LoginForm = ({
     )
 }
 
+const mapDispatchToProps = {
+    setNotification,
+}
+
 LoginForm.propTypes = {
     username: PropTypes.string,
     password: PropTypes.string,
@@ -70,4 +73,7 @@ LoginForm.propTypes = {
     setUsername: PropTypes.func,
     setPassword: PropTypes.func,
     setErrorMessage: PropTypes.func,
+    setNotification: PropTypes.func,
 }
+
+export default connect(null, mapDispatchToProps)(LoginForm)

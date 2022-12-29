@@ -4,13 +4,14 @@ import { BlogForm } from '../components/BlogForm'
 import BlogList from './BlogList'
 import { Togglable } from './Togglable'
 import PropTypes from 'prop-types'
+import { setNotification } from '../reducers/notificationReducer'
+import { connect } from 'react-redux'
 
-export const BlogUserBlock = ({
+const BlogUserBlock = ({
     blogs,
     user,
     setUser,
-    setErrorMessage,
-    setSuccessMessage,
+    setNotification,
 }) => {
     blogs.sort((x, y) => y.likes - x.likes)
 
@@ -18,20 +19,12 @@ export const BlogUserBlock = ({
         if (
             Object.values(blogObject).filter((elem) => elem === '').length > 0
         ) {
-            setErrorMessage('Fill in the empty fields')
-            setTimeout(() => {
-                setErrorMessage(null)
-            }, 3000)
+            setNotification('Fill in the empty fields', 3, 'error')
         } else {
             blogService.create(blogObject).catch((error) => {
-                setErrorMessage(error.response.data.error)
+                setNotification(error.response.data.error, 3, 'error')
             })
-            setSuccessMessage(
-                `A new blog ${blogObject.title} by ${blogObject.author}`
-            )
-            setTimeout(() => {
-                setSuccessMessage(null)
-            }, 3000)
+            setNotification(`A new blog ${blogObject.title} by ${blogObject.author}`, 3, 'success')
         }
     }
 
@@ -58,6 +51,10 @@ export const BlogUserBlock = ({
     )
 }
 
+const mapDispatchToProps = {
+    setNotification,
+}
+
 BlogUserBlock.propTypes = {
     blogs: PropTypes.array,
     user: PropTypes.object,
@@ -67,9 +64,8 @@ BlogUserBlock.propTypes = {
     setTitle: PropTypes.func,
     setAuthor: PropTypes.func,
     setUrl: PropTypes.func,
-    setErrorMessage: PropTypes.func,
-    setSuccessMessage: PropTypes.func,
-    errorMessage: PropTypes.any,
-    successMessage: PropTypes.any,
     setUser: PropTypes.func,
+    setNotification: PropTypes.func,
 }
+
+export default connect(null, mapDispatchToProps)(BlogUserBlock)

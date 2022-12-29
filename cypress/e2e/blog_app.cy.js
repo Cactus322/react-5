@@ -113,7 +113,6 @@ describe('Blog app', function () {
             cy.get('.blog-list').eq(1).find('.blog-likes button').click()
             cy.reload()
             cy.get('.blog-list').eq(0).find('.blog-short-description').should('contain', 'titletitle authorauthor')
-
         })
     })
 })
