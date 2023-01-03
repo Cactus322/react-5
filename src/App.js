@@ -3,16 +3,18 @@ import BlogUserBlock from './components/BlogUserBlock'
 import LoginForm from './components/LoginForm'
 import blogService from './services/blogs'
 import Notification from './components/Notification'
+import { useDispatch } from 'react-redux'
+import { initializeBlogs } from './reducers/blogReducer'
 
 const App = () => {
-    const [blogs, setBlogs] = useState([])
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [user, setUser] = useState(null)
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        blogService.getAll().then((blogs) => setBlogs(blogs))
-    })
+        dispatch(initializeBlogs())
+    }, [dispatch])
 
     useEffect(() => {
         const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser')
@@ -36,7 +38,6 @@ const App = () => {
                 />
             ) : (
                 <BlogUserBlock
-                    blogs={blogs}
                     user={user}
                     setUser={setUser}
                 />

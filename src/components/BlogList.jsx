@@ -41,13 +41,15 @@ const BlogList = ({ blog, checkLikeClick }) => {
     }
 
     return (
-        <div className='blog-list'>
+        <div className="blog-list">
             <div className="blog-list-item" style={blogList}>
                 <p className="blog-short-description" style={titleMargin}>
                     {blog.title} {blog.author}
                 </p>
                 <button
-                    className={`${blogDetailsShow ? 'hide' : 'show'}-description-button`}
+                    className={`${
+                        blogDetailsShow ? 'hide' : 'show'
+                    }-description-button`}
                     onClick={handleClick}
                 >
                     {blogDetailsShow ? 'Hide' : 'Show'}

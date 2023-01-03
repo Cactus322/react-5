@@ -1,4 +1,4 @@
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 const Notification = (props) => {
@@ -19,7 +19,6 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps)(Notification)
 
-// Messages.propTypes = {
-//     errorMessage: PropTypes.any,
-//     successMessage: PropTypes.any,
-// }
+Notification.propTypes = {
+    props: PropTypes.any,
+}

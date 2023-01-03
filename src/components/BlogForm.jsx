@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
 
-export const BlogForm = ({ createBlog }) => {
+export const BlogForm = ({ createBlogFunc }) => {
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
     const [url, setUrl] = useState('')
     const handleBlog = (e) => {
         e.preventDefault()
 
-        createBlog({
+        createBlogFunc({
             title: title,
             author: author,
             url: url,
