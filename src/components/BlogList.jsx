@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import blogService from '../services/blogs'
 import PropTypes from 'prop-types'
+import { likesIncrease } from '../reducers/blogReducer'
+import { connect } from 'react-redux'
 
-const BlogList = ({ blog, checkLikeClick }) => {
+const BlogList = ({ blog, likesIncrease }) => {
     const [blogDetailsShow, setBlogDetailsShow] = useState(false)
 
     const blogList = {
@@ -24,14 +26,6 @@ const BlogList = ({ blog, checkLikeClick }) => {
 
     const handleClick = () => {
         setBlogDetailsShow(!blogDetailsShow)
-    }
-
-    const handleLikeClick = (id, likes) => {
-        const blogObject = {
-            likes: likes + 1,
-        }
-
-        return blogService.putLike(blogObject, id)
     }
 
     const handleRemoveClick = (id, title, author) => {
@@ -60,13 +54,7 @@ const BlogList = ({ blog, checkLikeClick }) => {
                     <li>{blog.url}</li>
                     <li className="blog-likes">
                         {blog.likes}
-                        <button
-                            onClick={
-                                checkLikeClick
-                                    ? () => checkLikeClick()
-                                    : () => handleLikeClick(blog.id, blog.likes)
-                            }
-                        >
+                        <button onClick={() => likesIncrease(blog)}>
                             likes
                         </button>
                     </li>
@@ -92,7 +80,11 @@ const BlogList = ({ blog, checkLikeClick }) => {
 
 BlogList.propTypes = {
     blog: PropTypes.object,
-    checkLikeClick: PropTypes.func,
+    likesIncrease: PropTypes.func,
 }
 
-export default BlogList
+const mapDispatchToProps = {
+    likesIncrease,
+}
+
+export default connect(null, mapDispatchToProps)(BlogList)

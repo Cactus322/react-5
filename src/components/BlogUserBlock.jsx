@@ -14,7 +14,6 @@ const BlogUserBlock = ({
     setNotification,
     createBlog,
 }) => {
-    // blogs.sort((x, y) => y.likes - x.likes)
 
     const createBlogFunc = async (blogObject) => {
         if (
@@ -72,6 +71,7 @@ BlogUserBlock.propTypes = {
     setUrl: PropTypes.func,
     setUser: PropTypes.func,
     setNotification: PropTypes.func,
+    createBlog: PropTypes.func,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BlogUserBlock)
