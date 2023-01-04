@@ -1,10 +1,9 @@
 import { useState } from 'react'
-import blogService from '../services/blogs'
 import PropTypes from 'prop-types'
-import { likesIncrease } from '../reducers/blogReducer'
+import { likesIncrease, removeBlog } from '../reducers/blogReducer'
 import { connect } from 'react-redux'
 
-const BlogList = ({ blog, likesIncrease }) => {
+const BlogList = ({ blog, likesIncrease, removeBlog }) => {
     const [blogDetailsShow, setBlogDetailsShow] = useState(false)
 
     const blogList = {
@@ -30,7 +29,7 @@ const BlogList = ({ blog, likesIncrease }) => {
 
     const handleRemoveClick = (id, title, author) => {
         if (window.confirm(`Remove blog ${title} by ${author}`)) {
-            return blogService.deleteBlog(id)
+            return removeBlog(id)
         }
     }
 
@@ -85,6 +84,7 @@ BlogList.propTypes = {
 
 const mapDispatchToProps = {
     likesIncrease,
+    removeBlog,
 }
 
 export default connect(null, mapDispatchToProps)(BlogList)
