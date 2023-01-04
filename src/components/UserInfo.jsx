@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { removeUserInfo } from '../reducers/userReducer'
 
-export const UserInfo = ({ user, setUser }) => {
+const UserInfo = ({ user, removeUserInfo }) => {
     const handleLogout = () => {
-        window.localStorage.clear()
-        setUser(null)
+        removeUserInfo()
     }
 
     return (
@@ -16,7 +17,19 @@ export const UserInfo = ({ user, setUser }) => {
     )
 }
 
+const mapStateToProps = (state) => {
+    return {
+        user: state.user,
+    }
+}
+
+const mapDispatchToProps = {
+    removeUserInfo,
+}
+
 UserInfo.propTypes = {
     user: PropTypes.object,
-    setUser: PropTypes.func,
+    removeUserInfo: PropTypes.func,
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserInfo)

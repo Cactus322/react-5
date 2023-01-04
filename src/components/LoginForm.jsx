@@ -1,33 +1,21 @@
-import loginService from '../services/login'
-import blogService from '../services/blogs'
 import PropTypes from 'prop-types'
 import { setNotification } from '../reducers/notificationReducer'
+import { addUser } from '../reducers/userReducer'
 import { connect } from 'react-redux'
 
 const LoginForm = ({
     username,
     password,
-    setUser,
     setUsername,
     setPassword,
     setNotification,
+    addUser,
 }) => {
     const handleLogin = async (e) => {
         e.preventDefault()
 
         try {
-            const user = await loginService.login({
-                username,
-                password,
-            })
-            window.localStorage.setItem(
-                'loggedBlogAppUser',
-                JSON.stringify(user)
-            )
-            blogService.setToken(user.token)
-            setUser(user)
-            setUsername('')
-            setPassword('')
+            addUser({ username, password })
         } catch (exception) {
             setNotification('Wrong credentials', 3, 'error')
         }
@@ -64,16 +52,16 @@ const LoginForm = ({
 
 const mapDispatchToProps = {
     setNotification,
+    addUser,
 }
 
 LoginForm.propTypes = {
     username: PropTypes.string,
     password: PropTypes.string,
-    setUser: PropTypes.func,
     setUsername: PropTypes.func,
     setPassword: PropTypes.func,
-    setErrorMessage: PropTypes.func,
     setNotification: PropTypes.func,
+    addUser: PropTypes.func,
 }
 
 export default connect(null, mapDispatchToProps)(LoginForm)

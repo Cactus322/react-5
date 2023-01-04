@@ -39,7 +39,6 @@ export const initializeBlogs = () => {
 }
 
 export const createBlog = (content) => {
-    console.log(content)
     return async (dispatch) => {
         const newBlog = await blogService.create({
             title: content.title,

@@ -1,4 +1,4 @@
-import { UserInfo } from '../components/UserInfo'
+import UserInfo from '../components/UserInfo'
 import { BlogForm } from '../components/BlogForm'
 import BlogList from './BlogList'
 import { Togglable } from './Togglable'
@@ -9,8 +9,6 @@ import { createBlog } from '../reducers/blogReducer'
 
 const BlogUserBlock = ({
     blogs,
-    user,
-    setUser,
     setNotification,
     createBlog,
 }) => {
@@ -32,7 +30,7 @@ const BlogUserBlock = ({
 
     return (
         <div>
-            <UserInfo user={user} setUser={setUser} />
+            <UserInfo />
 
             <Togglable
                 showButtonLabel="New blog"
@@ -62,14 +60,6 @@ const mapDispatchToProps = {
 
 BlogUserBlock.propTypes = {
     blogs: PropTypes.array,
-    user: PropTypes.object,
-    title: PropTypes.string,
-    author: PropTypes.string,
-    url: PropTypes.string,
-    setTitle: PropTypes.func,
-    setAuthor: PropTypes.func,
-    setUrl: PropTypes.func,
-    setUser: PropTypes.func,
     setNotification: PropTypes.func,
     createBlog: PropTypes.func,
 }
