@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { setNotification } from '../reducers/notificationReducer'
-import { addUser } from '../reducers/userReducer'
+import { addUser } from '../reducers/loginReducer'
 import { connect } from 'react-redux'
 
 const LoginForm = ({

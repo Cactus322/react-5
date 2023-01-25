@@ -29,7 +29,7 @@ const BlogList = ({ blog, likesIncrease, removeBlog }) => {
 
     const handleRemoveClick = (id, title, author) => {
         if (window.confirm(`Remove blog ${title} by ${author}`)) {
-            return removeBlog(id)
+            removeBlog(id)
         }
     }
 

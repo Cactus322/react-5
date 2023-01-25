@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { removeUserInfo } from '../reducers/userReducer'
+import { removeUserInfo } from '../reducers/loginReducer'
 
-const UserInfo = ({ user, removeUserInfo }) => {
+const UserInfo = ({ login, removeUserInfo }) => {
     const handleLogout = () => {
         removeUserInfo()
     }
 
     return (
         <>
-            <h2>{user.name} logged in</h2>
+            <h2>{login.name} logged in</h2>
             <button className="logount-button" onClick={handleLogout}>
                 logout
             </button>
@@ -19,7 +19,7 @@ const UserInfo = ({ user, removeUserInfo }) => {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.user,
+        login: state.login,
     }
 }
 
@@ -28,7 +28,7 @@ const mapDispatchToProps = {
 }
 
 UserInfo.propTypes = {
-    user: PropTypes.object,
+    login: PropTypes.object,
     removeUserInfo: PropTypes.func,
 }
 

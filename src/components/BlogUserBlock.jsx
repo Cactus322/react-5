@@ -6,13 +6,15 @@ import PropTypes from 'prop-types'
 import { setNotification } from '../reducers/notificationReducer'
 import { connect } from 'react-redux'
 import { createBlog } from '../reducers/blogReducer'
+import Users from './Users'
+import { initializeUser } from '../reducers/userReducer'
 
 const BlogUserBlock = ({
     blogs,
     setNotification,
     createBlog,
+    initializeUser,
 }) => {
-
     const createBlogFunc = async (blogObject) => {
         if (
             Object.values(blogObject).filter((elem) => elem === '').length > 0
@@ -25,6 +27,7 @@ const BlogUserBlock = ({
                 3,
                 'success'
             )
+            initializeUser()
         }
     }
 
@@ -45,6 +48,8 @@ const BlogUserBlock = ({
             {blogs.map((blog) => (
                 <BlogList key={blog.id} blog={blog} />
             ))}
+
+            <Users />
         </div>
     )
 }
@@ -56,6 +61,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     setNotification,
     createBlog,
+    initializeUser,
 }
 
 BlogUserBlock.propTypes = {

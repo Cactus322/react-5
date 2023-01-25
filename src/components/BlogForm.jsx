@@ -64,5 +64,5 @@ export const BlogForm = ({ createBlogFunc }) => {
 }
 
 BlogForm.propTypes = {
-    createBlog: PropTypes.func,
+    createBlogFunc: PropTypes.func,
 }
