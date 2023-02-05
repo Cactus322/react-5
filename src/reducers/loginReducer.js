@@ -35,7 +35,7 @@ export const initializeLogin = () => {
 }
 
 export const removeUserInfo = () => {
-    return async (dispatch) => {
+    return (dispatch) => {
         window.localStorage.clear()
         dispatch(remove())
     }

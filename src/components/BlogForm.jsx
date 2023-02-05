@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { increaseBlogsLength } from '../reducers/userReducer'
 
-export const BlogForm = ({ createBlogFunc }) => {
+const BlogForm = ({ createBlogFunc, increaseBlogsLength }) => {
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
     const [url, setUrl] = useState('')
@@ -13,6 +15,8 @@ export const BlogForm = ({ createBlogFunc }) => {
             author: author,
             url: url,
         })
+
+        increaseBlogsLength()
     }
 
     return (
@@ -63,6 +67,12 @@ export const BlogForm = ({ createBlogFunc }) => {
     )
 }
 
+const mapDispatchToProps = {
+    increaseBlogsLength,
+}
+
 BlogForm.propTypes = {
     createBlogFunc: PropTypes.func,
 }
+
+export default connect(null, mapDispatchToProps)(BlogForm)

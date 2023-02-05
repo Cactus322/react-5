@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
 import { likesIncrease, removeBlog } from '../reducers/blogReducer'
+import { decreaseBlogsLength } from '../reducers/userReducer'
 import { connect } from 'react-redux'
 
-const BlogList = ({ blog, likesIncrease, removeBlog }) => {
+const BlogList = ({ blog, likesIncrease, removeBlog, decreaseBlogsLength }) => {
     const [blogDetailsShow, setBlogDetailsShow] = useState(false)
 
     const blogList = {
@@ -31,6 +32,8 @@ const BlogList = ({ blog, likesIncrease, removeBlog }) => {
         if (window.confirm(`Remove blog ${title} by ${author}`)) {
             removeBlog(id)
         }
+
+        decreaseBlogsLength()
     }
 
     return (
@@ -85,6 +88,7 @@ BlogList.propTypes = {
 const mapDispatchToProps = {
     likesIncrease,
     removeBlog,
+    decreaseBlogsLength,
 }
 
 export default connect(null, mapDispatchToProps)(BlogList)

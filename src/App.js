@@ -1,26 +1,30 @@
 import { useState, useEffect } from 'react'
 import BlogUserBlock from './components/BlogUserBlock'
 import LoginForm from './components/LoginForm'
-// import blogService from './services/blogs'
 import Notification from './components/Notification'
 import { connect, useDispatch } from 'react-redux'
 import { initializeBlogs } from './reducers/blogReducer'
 import { initializeUser } from './reducers/userReducer'
+import { initializeLogin } from './reducers/loginReducer'
 
-const App = ({ user }) => {
+const App = ({ initializeLogin }) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const dispatch = useDispatch()
+    const loggedUserJSON = JSON.parse(
+        window.localStorage.getItem('loggedBlogAppUser')
+    )
 
     useEffect(() => {
         dispatch(initializeBlogs())
         dispatch(initializeUser())
+        initializeLogin()
     }, [dispatch])
 
     return (
         <div>
             <Notification />
-            {user === null ? (
+            {loggedUserJSON === null ? (
                 <LoginForm
                     username={username}
                     password={password}
@@ -37,7 +41,12 @@ const App = ({ user }) => {
 const mapStateToProps = (state) => {
     return {
         user: state.user,
+        login: state.login,
     }
 }
 
-export default connect(mapStateToProps, null)(App)
+const mapDispatchToProps = {
+    initializeLogin,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

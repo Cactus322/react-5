@@ -9,7 +9,7 @@ const UserList = ({ user }) => {
     return (
         <div style={userList}>
             <li>{user.username}</li>
-            <li>{user.blogs.length}</li>
+            <li>{user.blogsLength}</li>
         </div>
     )
 }

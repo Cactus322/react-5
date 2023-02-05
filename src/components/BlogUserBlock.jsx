@@ -1,5 +1,5 @@
 import UserInfo from '../components/UserInfo'
-import { BlogForm } from '../components/BlogForm'
+import BlogForm from '../components/BlogForm'
 import BlogList from './BlogList'
 import { Togglable } from './Togglable'
 import PropTypes from 'prop-types'
@@ -13,7 +13,6 @@ const BlogUserBlock = ({
     blogs,
     setNotification,
     createBlog,
-    initializeUser,
 }) => {
     const createBlogFunc = async (blogObject) => {
         if (
@@ -27,7 +26,6 @@ const BlogUserBlock = ({
                 3,
                 'success'
             )
-            initializeUser()
         }
     }
 
