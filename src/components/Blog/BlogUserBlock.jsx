@@ -1,13 +1,16 @@
-import UserInfo from '../components/UserInfo'
-import BlogForm from '../components/BlogForm'
-import BlogList from './BlogList'
-import { Togglable } from './Togglable'
+
 import PropTypes from 'prop-types'
-import { setNotification } from '../reducers/notificationReducer'
 import { connect } from 'react-redux'
-import { createBlog } from '../reducers/blogReducer'
-import Users from './Users'
-import { initializeUser } from '../reducers/userReducer'
+import { createBlog } from '../../reducers/blogReducer'
+import { initializeUser } from '../../reducers/userReducer'
+import { setNotification } from '../../reducers/notificationReducer'
+
+import UserInfo from '../User/UserInfo'
+import BlogForm from './BlogForm'
+import BlogList from './BlogList'
+import Users from '../User/Users'
+import { Togglable } from '../common/Togglable'
+
 
 const BlogUserBlock = ({
     blogs,

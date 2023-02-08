@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
-import { likesIncrease, removeBlog } from '../reducers/blogReducer'
-import { decreaseBlogsLength } from '../reducers/userReducer'
 import { connect } from 'react-redux'
+import { likesIncrease, removeBlog } from '../../reducers/blogReducer'
+import { decreaseBlogsLength } from '../../reducers/userReducer'
 
 const BlogList = ({ blog, likesIncrease, removeBlog, decreaseBlogsLength }) => {
     const [blogDetailsShow, setBlogDetailsShow] = useState(false)

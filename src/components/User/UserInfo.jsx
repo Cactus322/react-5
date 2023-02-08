@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { removeUserInfo } from '../reducers/loginReducer'
+import { removeUserInfo } from '../../reducers/loginReducer'
 
 const UserInfo = ({ login, removeUserInfo }) => {
     const handleLogout = () => {

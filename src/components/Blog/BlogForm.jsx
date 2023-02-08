@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { increaseBlogsLength } from '../reducers/userReducer'
+import { increaseBlogsLength } from '../../reducers/userReducer'
 
 const BlogForm = ({ createBlogFunc, increaseBlogsLength }) => {
     const [title, setTitle] = useState('')
