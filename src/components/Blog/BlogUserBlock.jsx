@@ -5,10 +5,8 @@ import { createBlog } from '../../reducers/blogReducer'
 import { initializeUser } from '../../reducers/userReducer'
 import { setNotification } from '../../reducers/notificationReducer'
 
-import UserInfo from '../User/UserInfo'
 import BlogForm from './BlogForm'
 import BlogList from './BlogList'
-import Users from '../User/Users'
 import { Togglable } from '../common/Togglable'
 
 
@@ -34,8 +32,6 @@ const BlogUserBlock = ({
 
     return (
         <div>
-            <UserInfo />
-
             <Togglable
                 showButtonLabel="New blog"
                 hideButtonLabel="Cancel"
@@ -49,8 +45,6 @@ const BlogUserBlock = ({
             {blogs.map((blog) => (
                 <BlogList key={blog.id} blog={blog} />
             ))}
-
-            <Users />
         </div>
     )
 }

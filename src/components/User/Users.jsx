@@ -5,9 +5,11 @@ const Users = ({ users }) => {
     return (
         <div>
             <h2>Users</h2>
-            {users.map((user) => (
-                <UserList key={user.id} user={user} />
-            ))}
+            <ul>
+                {users.map((user) => (
+                    <UserList key={user.id} user={user} />
+                ))}
+            </ul>
         </div>
     )
 }

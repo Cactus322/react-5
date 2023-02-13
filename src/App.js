@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react'
-import BlogUserBlock from './components/Blog/BlogUserBlock'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import LoginForm from './components/Login/LoginForm'
 import Notification from './components/common/Notification'
 import { connect, useDispatch } from 'react-redux'
 import { initializeBlogs } from './reducers/blogReducer'
 import { initializeUser } from './reducers/userReducer'
 import { initializeLogin } from './reducers/loginReducer'
+import UserInfo from './components/User/UserInfo'
+import Users from './components/User/Users'
+import BlogUserBlock from './components/Blog/BlogUserBlock'
+import UserView from './components/User/UserView'
 
-const App = ({ initializeLogin }) => {
+const App = ({ initializeBlogs, initializeUser, initializeLogin }) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const dispatch = useDispatch()
@@ -16,37 +20,44 @@ const App = ({ initializeLogin }) => {
     )
 
     useEffect(() => {
-        dispatch(initializeBlogs())
-        dispatch(initializeUser())
+        initializeBlogs()
+        initializeUser()
         initializeLogin()
     }, [dispatch])
 
     return (
         <div>
-            <Notification />
-            {loggedUserJSON === null ? (
-                <LoginForm
-                    username={username}
-                    password={password}
-                    setUsername={setUsername}
-                    setPassword={setPassword}
-                />
-            ) : (
-                <BlogUserBlock />
-            )}
+            <Router>
+                <Notification />
+                {loggedUserJSON === null ? (
+                    <LoginForm
+                        username={username}
+                        password={password}
+                        setUsername={setUsername}
+                        setPassword={setPassword}
+                    />
+                ) : (
+                    <div>
+                        <UserInfo />
+                        <Routes>
+                            <Route path="/" element={<BlogUserBlock />} />
+                            <Route path="/users" element={<Users />} />
+                            <Route
+                                path="/users/:userId"
+                                element={<UserView />}
+                            />
+                        </Routes>
+                    </div>
+                )}
+            </Router>
         </div>
     )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        user: state.user,
-        login: state.login,
-    }
-}
-
 const mapDispatchToProps = {
+    initializeBlogs,
+    initializeUser,
     initializeLogin,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(null, mapDispatchToProps)(App)
