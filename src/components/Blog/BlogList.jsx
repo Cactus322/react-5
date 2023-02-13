@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { likesIncrease, removeBlog } from '../../reducers/blogReducer'
 import { decreaseBlogsLength } from '../../reducers/userReducer'
+import { Link } from 'react-router-dom'
 
 const BlogList = ({ blog, likesIncrease, removeBlog, decreaseBlogsLength }) => {
     const [blogDetailsShow, setBlogDetailsShow] = useState(false)
@@ -39,9 +40,9 @@ const BlogList = ({ blog, likesIncrease, removeBlog, decreaseBlogsLength }) => {
     return (
         <div className="blog-list">
             <div className="blog-list-item" style={blogList}>
-                <p className="blog-short-description" style={titleMargin}>
+                <Link to={`/blogs/${blog.id}`} className="blog-short-description" style={titleMargin}>
                     {blog.title} {blog.author}
-                </p>
+                </Link>
                 <button
                     className={`${
                         blogDetailsShow ? 'hide' : 'show'

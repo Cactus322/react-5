@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import LoginForm from './components/Login/LoginForm'
-import Notification from './components/common/Notification'
+
 import { connect, useDispatch } from 'react-redux'
 import { initializeBlogs } from './reducers/blogReducer'
 import { initializeUser } from './reducers/userReducer'
 import { initializeLogin } from './reducers/loginReducer'
+
+import LoginForm from './components/Login/LoginForm'
+import Notification from './components/common/Notification'
 import UserInfo from './components/User/UserInfo'
 import Users from './components/User/Users'
 import BlogUserBlock from './components/Blog/BlogUserBlock'
-import UserView from './components/User/UserView'
+import UserView from './components/User/view/UserView'
+import BlogView from './components/Blog/view/BlogView'
 
 const App = ({ initializeBlogs, initializeUser, initializeLogin }) => {
     const [username, setUsername] = useState('')
@@ -45,6 +48,10 @@ const App = ({ initializeBlogs, initializeUser, initializeLogin }) => {
                             <Route
                                 path="/users/:userId"
                                 element={<UserView />}
+                            />
+                            <Route
+                                path="/blogs/:blogId"
+                                element={<BlogView />}
                             />
                         </Routes>
                     </div>
