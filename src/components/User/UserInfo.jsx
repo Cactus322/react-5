@@ -9,7 +9,7 @@ const UserInfo = ({ login, removeUserInfo }) => {
 
     return (
         <>
-            <h2>{login.name} logged in</h2>
+            <p style={{ margin: 0 }}>{login.name} logged in</p>
             <button className="logount-button" onClick={handleLogout}>
                 logout
             </button>

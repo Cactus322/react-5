@@ -4,11 +4,13 @@ import { connect } from 'react-redux'
 const Notification = (props) => {
     const notification = props.notification
 
-    if (!notification) {
+    if (Object.keys(notification).length === 0) {
         return
     }
 
-    return <p className={`message-${notification.type}`}>{notification.content}</p>
+    return (
+        <p className={`message-${notification.type}`}>{notification.content}</p>
+    )
 }
 
 const mapStateToProps = (state) => {

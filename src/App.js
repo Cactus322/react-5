@@ -8,11 +8,11 @@ import { initializeLogin } from './reducers/loginReducer'
 
 import LoginForm from './components/Login/LoginForm'
 import Notification from './components/common/Notification'
-import UserInfo from './components/User/UserInfo'
 import Users from './components/User/Users'
 import BlogUserBlock from './components/Blog/BlogUserBlock'
 import UserView from './components/User/view/UserView'
 import BlogView from './components/Blog/view/BlogView'
+import Navigation from './components/Navigation/Navigation'
 
 const App = ({ initializeBlogs, initializeUser, initializeLogin }) => {
     const [username, setUsername] = useState('')
@@ -41,7 +41,7 @@ const App = ({ initializeBlogs, initializeUser, initializeLogin }) => {
                     />
                 ) : (
                     <div>
-                        <UserInfo />
+                        <Navigation />
                         <Routes>
                             <Route path="/" element={<BlogUserBlock />} />
                             <Route path="/users" element={<Users />} />
