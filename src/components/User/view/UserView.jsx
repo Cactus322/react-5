@@ -17,7 +17,7 @@ const UserView = ({ users }) => {
             <h4>added blogs</h4>
             <ul>
                 {blogs.map((blog) => (
-                    <li key={nanoid}>{blog.title}</li>
+                    <li key={nanoid()}>{blog.title}</li>
                 ))}
             </ul>
         </div>

@@ -42,6 +42,7 @@ const App = ({ initializeBlogs, initializeUser, initializeLogin }) => {
                 ) : (
                     <div>
                         <Navigation />
+                        <h1>BlogsApp</h1>
                         <Routes>
                             <Route path="/" element={<BlogUserBlock />} />
                             <Route path="/users" element={<Users />} />
