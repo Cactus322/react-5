@@ -13,6 +13,8 @@ import BlogUserBlock from './components/Blog/BlogUserBlock'
 import UserView from './components/User/view/UserView'
 import BlogView from './components/Blog/view/BlogView'
 import Navigation from './components/Navigation/Navigation'
+import theme from './styles/theme'
+import { ThemeProvider } from '@mui/material'
 
 const App = ({ initializeBlogs, initializeUser, initializeLogin }) => {
     const [username, setUsername] = useState('')
@@ -28,8 +30,10 @@ const App = ({ initializeBlogs, initializeUser, initializeLogin }) => {
         initializeLogin()
     }, [dispatch])
 
+    console.log(theme);
+
     return (
-        <div>
+        <ThemeProvider theme={theme}>
             <Router>
                 <Notification />
                 {loggedUserJSON === null ? (
@@ -58,7 +62,7 @@ const App = ({ initializeBlogs, initializeUser, initializeLogin }) => {
                     </div>
                 )}
             </Router>
-        </div>
+        </ThemeProvider>
     )
 }
 

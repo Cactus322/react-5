@@ -1,3 +1,4 @@
+import { Box, Button, Typography } from '@mui/material'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { removeUserInfo } from '../../reducers/loginReducer'
@@ -8,12 +9,26 @@ const UserInfo = ({ login, removeUserInfo }) => {
     }
 
     return (
-        <>
-            <p style={{ margin: 0 }}>{login.name} logged in</p>
-            <button className="logount-button" onClick={handleLogout}>
+        <Box
+            sx={{
+                display: 'flex',
+                gap: 2,
+            }}
+        >
+            <Typography
+                variant="body2"
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    textTransform: 'uppercase',
+                }}
+            >
+                {login.name} logged in
+            </Typography>
+            <Button color='error' onClick={handleLogout}>
                 logout
-            </button>
-        </>
+            </Button>
+        </Box>
     )
 }
 

@@ -1,20 +1,29 @@
+import { AppBar, Toolbar, Tabs, Tab } from '@mui/material'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import UserInfo from '../User/UserInfo'
 
 const Navigation = () => {
-    const navigationStyles = {
-        display: 'flex',
-        gap: 10,
-        backgroundColor: '#ccc',
-        padding: '10px 0',
+    const [tabValue, setTabValue] = useState(0)
+
+    const handleChange = (event, newValue) => {
+        setTabValue(newValue)
     }
 
     return (
-        <div style={navigationStyles}>
-            <Link to="/">blogs</Link>
-            <Link to="/users">users</Link>
-            <UserInfo />
-        </div>
+        <AppBar position="sticky" color="primary">
+            <Toolbar
+                sx={{
+                    justifyContent: 'space-between',
+                }}
+            >
+                <Tabs value={tabValue} onChange={handleChange}>
+                    <Tab label="Blogs" component={Link} to="/"></Tab>
+                    <Tab label="Users" component={Link} to="/users"></Tab>
+                </Tabs>
+                <UserInfo />
+            </Toolbar>
+        </AppBar>
     )
 }
 
