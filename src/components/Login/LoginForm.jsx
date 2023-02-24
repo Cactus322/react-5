@@ -2,6 +2,13 @@ import PropTypes from 'prop-types'
 import { setNotification } from '../../reducers/notificationReducer'
 import { addUser } from '../../reducers/loginReducer'
 import { connect } from 'react-redux'
+import {
+    Box,
+    Button,
+    FormControl,
+    InputLabel,
+    OutlinedInput,
+} from '@mui/material'
 
 const LoginForm = ({
     username,
@@ -22,31 +29,48 @@ const LoginForm = ({
     }
 
     return (
-        <form onSubmit={handleLogin}>
-            <div>
-                <p>username</p>
-                <input
+        <Box
+            component="form"
+            onSubmit={handleLogin}
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 3,
+                width: 250,
+                m: '0 auto',
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+            }}
+            autoComplete
+        >
+            <FormControl>
+                <InputLabel htmlFor="login-username">Username</InputLabel>
+                <OutlinedInput
+                    id="login-username"
                     className="username"
                     type="text"
                     value={username}
-                    name="Username"
+                    label="Username"
                     onChange={({ target }) => setUsername(target.value)}
                 />
-            </div>
-            <div>
-                <p>password</p>
-                <input
+            </FormControl>
+            <FormControl>
+                <InputLabel htmlFor="login-password">Password</InputLabel>
+                <OutlinedInput
+                    id="login-password"
                     className="password"
                     type="password"
                     value={password}
-                    name="Password"
+                    label="Password"
                     onChange={({ target }) => setPassword(target.value)}
                 />
-            </div>
-            <button className="login-button" type="submit">
-                login
-            </button>
-        </form>
+            </FormControl>
+            <Button className="login-button" type="submit">
+                Login
+            </Button>
+        </Box>
     )
 }
 

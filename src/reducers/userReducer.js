@@ -31,9 +31,10 @@ const userSlice = createSlice({
 
 export const { setUsers, increase, decrease } = userSlice.actions
 
-const currentUserId = JSON.parse(
+const currentUser = JSON.parse(
     window.localStorage.getItem('loggedBlogAppUser')
-).id
+)
+
 
 export const initializeUser = () => {
     return async (dispatch) => {
@@ -50,13 +51,13 @@ export const initializeUser = () => {
 
 export const increaseBlogsLength = () => {
     return async (dispatch) => {
-        dispatch(increase(currentUserId))
+        dispatch(increase(currentUser.id))
     }
 }
 
 export const decreaseBlogsLength = () => {
     return async (dispatch) => {
-        dispatch(decrease(currentUserId))
+        dispatch(decrease(currentUser.id))
     }
 }
 

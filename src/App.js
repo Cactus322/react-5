@@ -16,13 +16,10 @@ import Navigation from './components/Navigation/Navigation'
 import theme from './styles/theme'
 import { Box, CssBaseline, ThemeProvider, Typography } from '@mui/material'
 
-const App = ({ initializeBlogs, initializeUser, initializeLogin }) => {
+const App = ({ initializeBlogs, initializeUser, initializeLogin, login }) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const dispatch = useDispatch()
-    const loggedUserJSON = JSON.parse(
-        window.localStorage.getItem('loggedBlogAppUser')
-    )
 
     useEffect(() => {
         initializeBlogs()
@@ -32,45 +29,45 @@ const App = ({ initializeBlogs, initializeUser, initializeLogin }) => {
 
     return (
         <ThemeProvider theme={theme}>
-            <CssBaseline  />
-            <Router>
-                {loggedUserJSON === null ? (
-                    <LoginForm
-                        username={username}
-                        password={password}
-                        setUsername={setUsername}
-                        setPassword={setPassword}
-                    />
-                ) : (
-                    <>
-                        <Navigation />
-                        <Box component="main">
-                            <Notification />
-                            <Typography
-                                variant="h2"
-                                align="center"
-                                sx={{ pt: 3 }}
-                            >
-                                BlogsApp
-                            </Typography>
-                            <Routes>
-                                <Route path="/" element={<BlogUserBlock />} />
-                                <Route path="/users" element={<Users />} />
-                                <Route
-                                    path="/users/:userId"
-                                    element={<UserView />}
-                                />
-                                <Route
-                                    path="/blogs/:blogId"
-                                    element={<BlogView />}
-                                />
-                            </Routes>
-                        </Box>
-                    </>
-                )}
-            </Router>
+            <CssBaseline />
+            {login === null ? (
+                <LoginForm
+                    username={username}
+                    password={password}
+                    setUsername={setUsername}
+                    setPassword={setPassword}
+                />
+            ) : (
+                <Router>
+                    <Navigation />
+                    <Box component="main">
+                        <Notification />
+                        <Typography variant="h2" align="center" sx={{ pt: 3 }}>
+                            BlogsApp
+                        </Typography>
+                        <Routes>
+                            <Route path="/" element={<BlogUserBlock />} />
+                            <Route path="/users" element={<Users />} />
+                            <Route
+                                path="/users/:userId"
+                                element={<UserView />}
+                            />
+                            <Route
+                                path="/blogs/:blogId"
+                                element={<BlogView />}
+                            />
+                        </Routes>
+                    </Box>
+                </Router>
+            )}
         </ThemeProvider>
     )
+}
+
+const mapStateToProps = (state) => {
+    return {
+        login: state.login,
+    }
 }
 
 const mapDispatchToProps = {
@@ -79,4 +76,4 @@ const mapDispatchToProps = {
     initializeLogin,
 }
 
-export default connect(null, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)

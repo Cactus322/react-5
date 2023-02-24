@@ -25,7 +25,7 @@ const UserInfo = ({ login, removeUserInfo }) => {
             >
                 {login.name} logged in
             </Typography>
-            <Button color='error' onClick={handleLogout}>
+            <Button color="error" onClick={handleLogout}>
                 logout
             </Button>
         </Box>
