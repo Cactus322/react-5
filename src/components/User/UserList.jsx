@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { Link, ListItem } from '@mui/material'
+import { Link as RouterLink } from 'react-router-dom'
 
 const UserList = ({ user }) => {
     const userList = {
@@ -11,12 +13,20 @@ const UserList = ({ user }) => {
     }
 
     return (
-        <li>
-            <Link style={userList} to={`/users/${user.id}`}>
+        <ListItem>
+            <Link
+                component={RouterLink}
+                style={userList}
+                to={`/users/${user.id}`}
+            >
                 {user.username} <span>{user.blogsLength}</span>
             </Link>
-        </li>
+        </ListItem>
     )
+}
+
+UserList.propTypes = {
+    user: PropTypes.object,
 }
 
 export default UserList

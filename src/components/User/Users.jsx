@@ -1,17 +1,25 @@
+import { Box, List, Typography } from '@mui/material'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import UserList from './UserList'
 
-const Users = ({ users }) => {
-    return (
-        <div>
-            <h2>Users</h2>
-            <ul>
-                {users.map((user) => (
-                    <UserList key={user.id} user={user} />
-                ))}
-            </ul>
-        </div>
-    )
+const Users = ({ users }) => (
+    <Box
+        sx={{
+            m: 3,
+        }}
+    >
+        <Typography variant="h4">Users</Typography>
+        <List>
+            {users.map((user) => (
+                <UserList key={user.id} user={user} />
+            ))}
+        </List>
+    </Box>
+)
+
+Users.propTypes = {
+    users: PropTypes.array,
 }
 
 const mapStateToProps = (state) => {

@@ -1,3 +1,15 @@
+import {
+    Box,
+    Button,
+    FormControl,
+    InputLabel,
+    Link,
+    List,
+    ListItem,
+    OutlinedInput,
+    Typography,
+} from '@mui/material'
+import PropTypes from 'prop-types'
 import { nanoid } from '@reduxjs/toolkit'
 import { useState } from 'react'
 import { connect } from 'react-redux'
@@ -7,12 +19,6 @@ import { likesIncrease, createComment } from '../../../reducers/blogReducer'
 const BlogView = ({ blogs, likesIncrease, createComment }) => {
     if (!blogs.length) {
         return null
-    }
-
-    const blogList = {
-        display: 'flex',
-        gap: 10,
-        alignItems: 'center',
     }
 
     const [comment, setComment] = useState('')
@@ -30,40 +36,97 @@ const BlogView = ({ blogs, likesIncrease, createComment }) => {
     }
 
     return (
-        <div>
-            <h2>
+        <Box
+            sx={{
+                m: 3,
+            }}
+        >
+            <Typography
+                variant="h4"
+                sx={{
+                    pb: 2,
+                }}
+            >
                 {title} {author}
-            </h2>
-            <a href={url}>{url}</a>
-            <div style={blogList}>
-                <p>{likes} likes</p>
-                <button onClick={() => likesIncrease(blog)}>likes</button>{' '}
-            </div>
-            <p>Added by {user.username}</p>
+            </Typography>
+            <Link underline="hover" href={url}>
+                {url}
+            </Link>
+            <Box
+                sx={{
+                    pt: 2,
+                    display: 'flex',
+                    gap: '10px',
+                    alignItems: 'center',
+                }}
+            >
+                <Typography variant="body1">{likes} likes</Typography>
+                <Button
+                    color="success"
+                    variant="contained"
+                    onClick={() => likesIncrease(blog)}
+                >
+                    likes
+                </Button>
+            </Box>
 
-            <h3>comments</h3>
-            <form onSubmit={handleComment}>
-                <input
-                    type="text"
-                    name="comment"
-                    value={comment}
-                    onChange={({ target }) => setComment(target.value)}
-                />
-                <button type="submit">add comment</button>
-            </form>
-            <ul>
+            <Typography
+                variant="body1"
+                sx={{
+                    pt: 2,
+                }}
+            >
+                Added by {user.username}
+            </Typography>
+
+            <Typography
+                variant="h5"
+                sx={{
+                    py: 2,
+                }}
+            >
+                Comments
+            </Typography>
+            <Box component="form" onSubmit={handleComment}>
+                <FormControl>
+                    <InputLabel htmlFor="blog-comment">Comment</InputLabel>
+                    <OutlinedInput
+                        id="blog-comment"
+                        type="text"
+                        label="comment"
+                        value={comment}
+                        onChange={({ target }) => setComment(target.value)}
+                    />
+                </FormControl>
+                <Button
+                    color="info"
+                    type="submit"
+                    sx={{
+                        height: '56px',
+                        ml: 2
+                    }}
+                >
+                    Add comment
+                </Button>
+            </Box>
+            <List>
                 {comments.map((comment) => (
-                    <li key={nanoid()}>{comment.text}</li>
+                    <ListItem key={nanoid()}>{comment.text}</ListItem>
                 ))}
-            </ul>
-        </div>
+            </List>
+        </Box>
     )
+}
+
+BlogView.propTypes = {
+    likesIncrease: PropTypes.func,
+    createComment: PropTypes.func,
+    blogs: PropTypes.array
 }
 
 const mapStateToProps = (state) => {
     return {
         blogs: state.blog,
-        commentss: state.comment,
     }
 }
 

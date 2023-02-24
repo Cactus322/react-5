@@ -1,3 +1,4 @@
+import { Box, List, ListItem, Typography } from '@mui/material'
 import { nanoid } from '@reduxjs/toolkit'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router-dom'
@@ -11,16 +12,19 @@ const UserView = ({ users }) => {
     const user = users.find((user) => user.id === id)
     const name = user.username
     const blogs = user.blogs
+
     return (
-        <div>
-            <h3>{name}</h3>
-            <h4>added blogs</h4>
-            <ul>
+        <Box sx={{ m: 3 }}>
+            <Typography variant="h4" color="primary" align="center">
+                {name}
+            </Typography>
+            <Typography variant="h6">added blogs</Typography>
+            <List>
                 {blogs.map((blog) => (
-                    <li key={nanoid()}>{blog.title}</li>
+                    <ListItem key={nanoid()}>{blog.title}</ListItem>
                 ))}
-            </ul>
-        </div>
+            </List>
+        </Box>
     )
 }
 
