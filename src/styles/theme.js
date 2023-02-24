@@ -7,10 +7,10 @@ const theme = createTheme({
             main: '#5893df',
         },
         secondary: {
-            main: '#2ec5d3',
+            main: '#3f54c9',
         },
         background: {
-            default: '#192231',
+            default: '#2b3548',
             paper: '#24344d',
         },
     },

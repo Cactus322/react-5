@@ -14,7 +14,7 @@ import UserView from './components/User/view/UserView'
 import BlogView from './components/Blog/view/BlogView'
 import Navigation from './components/Navigation/Navigation'
 import theme from './styles/theme'
-import { ThemeProvider } from '@mui/material'
+import { Box, CssBaseline, ThemeProvider, Typography } from '@mui/material'
 
 const App = ({ initializeBlogs, initializeUser, initializeLogin }) => {
     const [username, setUsername] = useState('')
@@ -30,12 +30,10 @@ const App = ({ initializeBlogs, initializeUser, initializeLogin }) => {
         initializeLogin()
     }, [dispatch])
 
-    console.log(theme);
-
     return (
         <ThemeProvider theme={theme}>
+            <CssBaseline  />
             <Router>
-                <Notification />
                 {loggedUserJSON === null ? (
                     <LoginForm
                         username={username}
@@ -44,22 +42,31 @@ const App = ({ initializeBlogs, initializeUser, initializeLogin }) => {
                         setPassword={setPassword}
                     />
                 ) : (
-                    <div>
+                    <>
                         <Navigation />
-                        <h1>BlogsApp</h1>
-                        <Routes>
-                            <Route path="/" element={<BlogUserBlock />} />
-                            <Route path="/users" element={<Users />} />
-                            <Route
-                                path="/users/:userId"
-                                element={<UserView />}
-                            />
-                            <Route
-                                path="/blogs/:blogId"
-                                element={<BlogView />}
-                            />
-                        </Routes>
-                    </div>
+                        <Box component="main">
+                            <Notification />
+                            <Typography
+                                variant="h2"
+                                align="center"
+                                sx={{ pt: 3 }}
+                            >
+                                BlogsApp
+                            </Typography>
+                            <Routes>
+                                <Route path="/" element={<BlogUserBlock />} />
+                                <Route path="/users" element={<Users />} />
+                                <Route
+                                    path="/users/:userId"
+                                    element={<UserView />}
+                                />
+                                <Route
+                                    path="/blogs/:blogId"
+                                    element={<BlogView />}
+                                />
+                            </Routes>
+                        </Box>
+                    </>
                 )}
             </Router>
         </ThemeProvider>

@@ -2,6 +2,14 @@ import { useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { increaseBlogsLength } from '../../reducers/userReducer'
+import {
+    Box,
+    Button,
+    FormControl,
+    InputLabel,
+    OutlinedInput,
+    Typography,
+} from '@mui/material'
 
 const BlogForm = ({ createBlogFunc, increaseBlogsLength }) => {
     const [title, setTitle] = useState('')
@@ -21,48 +29,67 @@ const BlogForm = ({ createBlogFunc, increaseBlogsLength }) => {
 
     return (
         <>
-            <h2>Create new:</h2>
+            <Box
+                component="form"
+                onSubmit={handleBlog}
+                variant="filled"
+                color="error"
+                sx={{
+                    display: 'flex',
+                    gap: 2,
+                    flexDirection: 'column',
+                    width: 250,
+                    mx: 'auto'
+                }}
+            >
+                <Typography
+                    component="fieldset"
+                    variant="h4"
+                    sx={{ border: 'none' }}
+                >
+                    Create new:
+                </Typography>
 
-            <form className="blogs-form" onSubmit={handleBlog}>
-                <label>
-                    title:
-                    <input
-                        className="blog-title"
+                <FormControl>
+                    <InputLabel htmlFor="blog-title">Title</InputLabel>
+                    <OutlinedInput
+                        id="blog-title"
                         type="text"
                         value={title}
-                        name="Title"
+                        label="Title"
                         onChange={({ target }) => setTitle(target.value)}
-                        placeholder="write blog title here"
+                        placeholder="Write blog title here"
                     />
-                </label>
-                <label>
-                    author:
-                    <input
-                        className="blog-author"
+                </FormControl>
+
+                <FormControl>
+                    <InputLabel htmlFor="blog-author">Author</InputLabel>
+                    <OutlinedInput
+                        id="blog-author"
                         type="text"
                         value={author}
-                        name="Author"
+                        label="Author"
                         onChange={({ target }) => setAuthor(target.value)}
-                        placeholder="write blog author here"
+                        placeholder="Write blog author here"
                     />
-                </label>
+                </FormControl>
 
-                <label>
-                    url:
-                    <input
-                        className="blog-url"
+                <FormControl>
+                    <InputLabel htmlFor="blog-url">Url</InputLabel>
+                    <OutlinedInput
+                        id="blog-url"
                         type="text"
                         value={url}
-                        name="Url"
+                        label="Url"
                         onChange={({ target }) => setUrl(target.value)}
                         placeholder="write blog url here"
                     />
-                </label>
+                </FormControl>
 
-                <button className="blog-create-button" type="submit">
+                <Button variant="contained" type="submit">
                     Create
-                </button>
-            </form>
+                </Button>
+            </Box>
         </>
     )
 }

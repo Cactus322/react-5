@@ -5,22 +5,15 @@ body {
 .blogs-form {
     display: flex;
     flex-direction: column;
-    max-width: 100px;
+    max-width: 300px;
     gap: 10px;
 }
 
-.message-error {
-    padding: 10px;
-    background-color: rgb(255, 0, 0);
-    border-radius: 8px;
-    color: white;
-}
-
-.message-success {
-    padding: 10px;
-    background-color: rgb(0, 255, 0);
-    border-radius: 8px;
-    color: white;
+.blogs-form__fieldset {
+    border: none;
+    width: 100%;
+    font-size: 30px;
+    font-family: 'Roboto';
 }
 
 .togglable-button-margin {

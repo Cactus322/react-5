@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
+import { Box, Button } from '@mui/material'
 
 export const Togglable = ({
     showButtonLabel,
@@ -9,33 +10,47 @@ export const Togglable = ({
 }) => {
     const [visible, setVisible] = useState(false)
 
-    const hideWhenVisible = { display: visible && 'none' }
-    const showWhenVisible = { display: !visible && 'none' }
-
     const toggleVisibilite = () => {
         setVisible(!visible)
     }
 
     return (
-        <div>
-            <div style={hideWhenVisible}>
-                <button
-                    className={`open-form ${margin && 'togglable-button-margin'}`}
+        <Box>
+            <Box
+                sx={{
+                    display: !visible ? 'flex' : 'none',
+                    justifyContent: 'center',
+                    p: 3,
+                }}
+            >
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    className={`open-form ${
+                        margin && 'togglable-button-margin'
+                    }`}
                     onClick={toggleVisibilite}
                 >
                     {showButtonLabel}
-                </button>
-            </div>
-            <div style={showWhenVisible}>
+                </Button>
+            </Box>
+            <Box sx={{
+                display: visible ? 'block' : 'none'
+            }}>
                 {children}
-                <button
-                    className={`close-form ${margin && 'togglable-button-margin'}`}
+                <Button
+                    color="error"
                     onClick={toggleVisibilite}
+                    sx={{
+                        display: 'block',
+                        m: ' 8px auto 0',
+                        width: 250,
+                    }}
                 >
                     {hideButtonLabel}
-                </button>
-            </div>
-        </div>
+                </Button>
+            </Box>
+        </Box>
     )
 }
 
