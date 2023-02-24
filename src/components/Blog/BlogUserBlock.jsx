@@ -1,4 +1,3 @@
-
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { createBlog } from '../../reducers/blogReducer'
@@ -8,13 +7,9 @@ import { setNotification } from '../../reducers/notificationReducer'
 import BlogForm from './BlogForm'
 import BlogList from './BlogList'
 import { Togglable } from '../common/Togglable'
+import { List, Typography } from '@mui/material'
 
-
-const BlogUserBlock = ({
-    blogs,
-    setNotification,
-    createBlog,
-}) => {
+const BlogUserBlock = ({ blogs, setNotification, createBlog }) => {
     const createBlogFunc = async (blogObject) => {
         if (
             Object.values(blogObject).filter((elem) => elem === '').length > 0
@@ -40,11 +35,13 @@ const BlogUserBlock = ({
                 <BlogForm createBlogFunc={createBlogFunc} />
             </Togglable>
 
-            <h2>blogs</h2>
+            <Typography variant="h4">Blogs</Typography>
 
-            {blogs.map((blog) => (
-                <BlogList key={blog.id} blog={blog} />
-            ))}
+            <List>
+                {blogs.map((blog) => (
+                    <BlogList key={blog.id} blog={blog} />
+                ))}
+            </List>
         </div>
     )
 }

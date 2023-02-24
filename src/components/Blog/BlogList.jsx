@@ -1,83 +1,99 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { likesIncrease, removeBlog } from '../../reducers/blogReducer'
-import { decreaseBlogsLength } from '../../reducers/userReducer'
-import { Link } from 'react-router-dom'
+import { likesIncrease } from '../../reducers/blogReducer'
+import { Link as RouterLink } from 'react-router-dom'
+import {
+    Button,
+    Link,
+    List,
+    ListItem,
+} from '@mui/material'
+import DialogForm from '../common/DialogForm'
 
-const BlogList = ({ blog, likesIncrease, removeBlog, decreaseBlogsLength }) => {
+const BlogList = ({ blog, likesIncrease }) => {
     const [blogDetailsShow, setBlogDetailsShow] = useState(false)
-
-    const blogList = {
-        display: 'flex',
-        gap: 10,
-        alignItems: 'center',
-        marginBottom: !blogDetailsShow && 10,
-    }
-
-    const titleMargin = {
-        margin: 0,
-    }
-
-    const listStyles = {
-        listStyleType: 'none',
-        padding: 0,
-        marginTop: 0,
-    }
+    const [dialogOpen, setDialogOpen] = useState(false)
 
     const handleClick = () => {
         setBlogDetailsShow(!blogDetailsShow)
     }
 
-    const handleRemoveClick = (id, title, author) => {
-        if (window.confirm(`Remove blog ${title} by ${author}`)) {
-            removeBlog(id)
-        }
-
-        decreaseBlogsLength()
+    const handelDialogOpen = () => {
+        setDialogOpen(!dialogOpen)
     }
 
     return (
-        <div className="blog-list">
-            <div className="blog-list-item" style={blogList}>
-                <Link to={`/blogs/${blog.id}`} className="blog-short-description" style={titleMargin}>
+        <>
+            <ListItem
+                className="blog-list-item"
+                sx={{
+                    display: 'flex',
+                    gap: '10px',
+                    alignItems: 'center',
+                    marginBottom: !blogDetailsShow && '10px',
+                }}
+            >
+                <Link
+                    component={RouterLink}
+                    underline="hover"
+                    variant="overline"
+                    to={`/blogs/${blog.id}`}
+                    className="blog-short-description"
+                >
                     {blog.title} {blog.author}
                 </Link>
-                <button
+                <Button
+                    color="info"
+                    variant="outlined"
                     className={`${
                         blogDetailsShow ? 'hide' : 'show'
                     }-description-button`}
                     onClick={handleClick}
                 >
                     {blogDetailsShow ? 'Hide' : 'Show'}
-                </button>
-            </div>
+                </Button>
+            </ListItem>
+
             {blogDetailsShow && (
-                <ul style={listStyles}>
-                    <li>{blog.url}</li>
-                    <li className="blog-likes">
+                <List>
+                    <ListItem sx={{ pl: 3 }}>{blog.url}</ListItem>
+                    <ListItem
+                        className="blog-likes"
+                        sx={{
+                            gap: 2,
+                            pl: 3,
+                        }}
+                    >
                         {blog.likes}
-                        <button onClick={() => likesIncrease(blog)}>
+                        <Button
+                            color="success"
+                            variant="contained"
+                            onClick={() => likesIncrease(blog)}
+                        >
                             likes
-                        </button>
-                    </li>
-                    <li>
-                        <button
+                        </Button>
+                    </ListItem>
+                    <ListItem>
+                        <Button
+                            color="error"
                             className="blog-remove-button"
-                            onClick={() =>
-                                handleRemoveClick(
-                                    blog.id,
-                                    blog.title,
-                                    blog.author
-                                )
-                            }
+                            onClick={handelDialogOpen}
                         >
                             Remove
-                        </button>
-                    </li>
-                </ul>
+                        </Button>
+
+                        <DialogForm
+                            id={blog.id}
+                            title={blog.title}
+                            author={blog.author}
+                            dialogOpen={dialogOpen}
+                            setDialogOpen={setDialogOpen}
+                        />
+                    </ListItem>
+                </List>
             )}
-        </div>
+        </>
     )
 }
 
@@ -88,8 +104,6 @@ BlogList.propTypes = {
 
 const mapDispatchToProps = {
     likesIncrease,
-    removeBlog,
-    decreaseBlogsLength,
 }
 
 export default connect(null, mapDispatchToProps)(BlogList)
